@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-go-to-top',
@@ -7,7 +8,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
   encapsulation: ViewEncapsulation.ShadowDom,
   imports: [CommonModule],
   template: `
-    <button class="btn-color go-to-top" (click)="goToTop()">回到頂部</button>
+    <button class="btn-color go-to-top" (click)="goToTop()">{{ dataService.text }}</button>
   `,
   styles: [`
   .go-to-top {
@@ -33,13 +34,44 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 })
 export class GoToTopComponent {
 
+  dataService = inject(DataService);
+
   document = inject(DOCUMENT);
 
-  constructor() { }
+  private _text = '回到頂部';
+
+  @Input()
+  set text(value: string) {
+    this._text = value;
+    console.log('Input value changed to: ', value);
+  }
+
+  get text(): string {
+    return this._text;
+  }
+
+  @Output() buttonClick = new EventEmitter();
+
+  ngOnInit(): void {
+    console.log('---- GoToTopComponent ngOnInit ----');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('---- GoToTopComponent ngOnChanges ---- ', changes);
+  }
 
   goToTop() {
     // this.document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
     this.document.querySelector('main')?.children[0].children[0].children[0].scrollTo({ top: 0, behavior: 'smooth' });
+    // this.buttonClick.emit({ text: this.text });
+    this.dataService.text = '回到頂部';
+  }
+
+  ngOnDestroy(): void {
+    console.log('---- GoToTopComponent ngOnDestroy ----');
   }
 
 }
+
+
+
