@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-go-to-top',
   standalone: true,
+  encapsulation: ViewEncapsulation.ShadowDom,
   imports: [CommonModule],
   template: `
     <button class="btn-color go-to-top" (click)="goToTop()">回到頂部</button>

@@ -29,7 +29,9 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              { "glob": "manifest.json", "input": "src/", "output": "/" },
+              { "glob": "content-script.js", "input": "src/", "output": "/" }
             ],
             "styles": [
               "src/styles.scss"
@@ -50,7 +52,7 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "none"
             },
             "development": {
               "buildOptimizer": false,
