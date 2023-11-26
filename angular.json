@@ -30,8 +30,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "manifest.json", "input": "src/", "output": "/" },
-              { "glob": "content-script.js", "input": "src/", "output": "/" }
+              "src/manifest.json",
+              "src/content-script.js",
+              "src/background.js"
             ],
             "styles": [
               "src/styles.scss"

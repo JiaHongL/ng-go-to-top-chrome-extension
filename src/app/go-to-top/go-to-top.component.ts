@@ -24,7 +24,7 @@ import { DataService } from '../data.service';
   }
 
   .go-to-top:hover {
-      background-color: #1e88e5;
+      background-color: red;
   }
 
   .btn-color {
@@ -62,7 +62,7 @@ export class GoToTopComponent {
 
   goToTop() {
     // this.document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
-    this.document.querySelector('main')?.children[0].children[0].children[0].scrollTo({ top: 0, behavior: 'smooth' });
+    this.document.querySelector('main')?.children[1].children[0].children[0].children[0].scrollTo({ top: 0, behavior: 'smooth' });
     // this.buttonClick.emit({ text: this.text });
     this.dataService.text = '回到頂部';
   }

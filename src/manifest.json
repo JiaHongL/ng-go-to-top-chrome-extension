@@ -3,6 +3,9 @@
   "name": "ChatGPT GoToTop 擴充功能",
   "version": "1.0.0",
   "description": "一個使用 Angular 實作 Chrome Extension 的範例",
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": ["https://chat.openai.com/*"],
@@ -16,6 +19,7 @@
       "use_dynamic_url": true
     }
   ],
+  "permissions": [ "management"],
   "icons": {
     "16": "assets/16.png",
     "48": "assets/48.png",
