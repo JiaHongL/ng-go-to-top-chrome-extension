@@ -1,6 +1,4 @@
-const chokidar = require("chokidar");
-const { exec } = require("child_process");
-
+// Websocket server
 const WebSocket = require("ws");
 const wss = new WebSocket.Server({ port: 8080 });
 
@@ -13,7 +11,9 @@ wss.on("connection", function connection(ws) {
   ws.send("Hello Client!");
 });
 
-module.exports = wss;
+// File watcher
+const chokidar = require("chokidar");
+const { exec } = require("child_process");
 
 // 初始化 chokidar 監聽器
 const watcher = chokidar.watch("./src", {
@@ -24,16 +24,20 @@ const watcher = chokidar.watch("./src", {
 // 監聽事件
 watcher.on("change", (path) => {
   console.log(`Detected change in ${path}. Rebuilding...`);
-  exec("ng build", (err, stdout, stderr) => {
+  exec("npm run build:dev", (err, stdout, stderr) => {
     if (err) {
       console.error("Error during build:", err);
       return;
     }
-    wss.clients.forEach(client => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send("reload");
-        console.log("Sent reload message to client.");
-      }
+    console.log("Build completed.");
+    exec("npm run copy-background:dev", (err, stdout, stderr) => {
+      console.log("Copied background.js.");
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send("reload");
+          console.log("Sent reload message to client.");
+        }
+      });
     });
   });
 });

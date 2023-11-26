@@ -31,8 +31,7 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.json",
-              "src/content-script.js",
-              "src/background.js"
+              "src/content-script.js"
             ],
             "styles": [
               "src/styles.scss"
@@ -58,7 +57,7 @@
             "development": {
               "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
+              "vendorChunk": false,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true

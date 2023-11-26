@@ -10,7 +10,7 @@ import { DataService } from './data.service';
       <!-- <ng-container *ngFor="let item of fakeArray;let i = index;">
         <p>測試滾軸是否正常 {{i}} </p>
       </ng-container> -->
-      <app-go-to-top><app-go-to-top>
+      <!-- <app-go-to-top><app-go-to-top> -->
   `,
   styles: [],
   standalone: true,
@@ -32,16 +32,18 @@ export class AppComponent {
 
   ngOnInit(): void {
     // 監聽 component output event
-    // this.componentRef.instance.buttonClick.subscribe((event) => console.log('buttonClick text:', event));
+    this.componentRef.instance.buttonClick.subscribe((event) => console.log('buttonClick text:', event));
 
     setTimeout(() => {
       // 修改按鈕的 title
       // this.componentRef.instance.text = 'GoToTop';
       this.dataService.text = 'GoToTop';
+
       // setTimeout(() => {
-      //   // 移除這顆元件
-      //   this.componentRef.destroy();
+        // 移除這顆元件
+        // this.componentRef.destroy();
       // }, 6000);
+
     }, 3000);
 
   }
