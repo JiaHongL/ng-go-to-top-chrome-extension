@@ -9,6 +9,9 @@ wss.on("connection", function connection(ws) {
     console.log("received: %s", message);
   });
   ws.send("Hello Client!");
+  ws.on("close", function close() {
+    console.log("client disconnected");
+  });
 });
 
 // File watcher
@@ -23,21 +26,31 @@ const watcher = chokidar.watch("./src", {
 
 // 監聽事件
 watcher.on("change", (path) => {
-  console.log(`Detected change in ${path}. Rebuilding...`);
+
+  console.log(`==> Detected change in ${path}. Rebuilding...`);
+
   exec("npm run build:dev", (err, stdout, stderr) => {
+
     if (err) {
       console.error("Error during build:", err);
       return;
     }
-    console.log("Build completed.");
+
+    console.log("==> Build completed.");
+
     exec("npm run copy-background:dev", (err, stdout, stderr) => {
-      console.log("Copied background.js.");
+
+      console.log("==> Copied background.js.");
+      
       wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
           client.send("reload");
-          console.log("Sent reload message to client.");
+          console.log("==> Sent reload message to client.");
         }
       });
+
     });
+
   });
+
 });

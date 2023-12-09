@@ -7,6 +7,7 @@ const args = process.argv.slice(2);
 const environment = args[0];
 
 async function copyBackgroundJS() {
+
   try {
     // 使用fs-extra的copy方法複製文件
     await fs.copy(sourceFilePath, targetFilePath);
@@ -16,7 +17,7 @@ async function copyBackgroundJS() {
     // 讀取目標文件的內容
     let data = await fs.readFile(targetFilePath, "utf8");
 
-    // 將ENABLE_LIVE_RELOAD替換為指定的值
+    // 將 ENABLE_LIVE_RELOAD 替換為指定的值
     data = data.replace(
       "ENABLE_LIVE_RELOAD",
       enableLiveReload
@@ -28,6 +29,7 @@ async function copyBackgroundJS() {
   } catch (err) {
     console.error("發生錯誤：", err);
   }
+  
 }
 
 copyBackgroundJS();
