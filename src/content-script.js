@@ -36,5 +36,10 @@ try {
   console.log("error", error);
 }
 
-// 戳一下
-chrome.runtime.sendMessage({command: "wake up!"});
+if (ENABLE_LIVE_RELOAD) {
+  // 定時戳一下，讓背景程式不要進入睡眠狀態
+  setInterval(() => {
+    chrome.runtime.sendMessage({command: "wake up!"});
+  }, 5000);
+  console.log("keep awake!");
+}
