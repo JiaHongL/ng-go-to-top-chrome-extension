@@ -38,9 +38,9 @@ watcher.on("change", (path) => {
 
     console.log("==> Build completed.");
 
-    exec("npm run copy-background:dev", (err, stdout, stderr) => {
+    exec("npm run copy-all:dev", (err, stdout, stderr) => {
 
-      console.log("==> Copied background.js.");
+      console.log("==> Copied background.js and content-script.js to dist.");
       
       wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
