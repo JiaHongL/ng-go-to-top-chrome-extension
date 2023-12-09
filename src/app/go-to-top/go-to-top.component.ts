@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
   encapsulation: ViewEncapsulation.ShadowDom,
   imports: [CommonModule],
   template: `
-    <button class="btn-color go-to-top" (click)="goToTop()">{{ dataService.text }}222</button>
+    <button class="btn-color go-to-top" (click)="goToTop()">{{ dataService.text }}</button>
   `,
   styles: [`
   .go-to-top {

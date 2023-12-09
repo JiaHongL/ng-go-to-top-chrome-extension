@@ -43,6 +43,7 @@ if (ENABLE_LIVE_RELOAD) {
       });
     }
     catch (e) {
+      // chrome extension 已刷新，需重新載入頁面，取得最新的 chrome object
       location.reload();
       console.log("e", e);
     }

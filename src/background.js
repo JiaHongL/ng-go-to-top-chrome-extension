@@ -41,11 +41,13 @@ if (ENABLE_LIVE_RELOAD) {
     };
   }
 
+  // 連線 WebSocket
   connectWebSocket();
 
   // 監聽擴展安裝事件
   chrome.runtime.onInstalled.addListener(() => {
 
+    // 避免初始化時，觸發重新加載
     if(isInitializing) {
       isInitializing = false;
       return;
@@ -61,6 +63,7 @@ if (ENABLE_LIVE_RELOAD) {
     
   });
 
+  // 監聽 content-script.js 發送的訊息，並回應
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.command === "wake up!") {
       sendResponse({ result: "OK" });
