@@ -1,5 +1,4 @@
 try {
-
   const injectDOMElement = (tagName, targetElement, options = {}) => {
     const element = document.createElement(tagName);
     Object.entries(options).forEach(([optionKey, optionValue]) => {
@@ -31,15 +30,21 @@ try {
       });
     }
   });
-  
 } catch (error) {
   console.log("error", error);
 }
 
 if (ENABLE_LIVE_RELOAD) {
   // 定時戳一下，讓背景程式不要進入睡眠狀態
-  setInterval(() => {
-    chrome.runtime.sendMessage({command: "wake up!"});
-  }, 5000);
-  console.log("keep awake!");
+  setInterval(function(){
+    try {
+      chrome.runtime.sendMessage({ command: "wake up!" }).then((response) => {
+        console.log("response", response);
+      });
+    }
+    catch (e) {
+      location.reload();
+      console.log("e", e);
+    }
+  }, 3000);
 }
